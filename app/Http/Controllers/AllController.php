@@ -26,11 +26,11 @@ class AllController extends Controller
 	public function posts(Request $request) 
 	{
 		$posts = Post::where(function($q) use($request){
-			if($request->has('category_id')){
+			if($request->has('category_id')){ //dropdown
 				$q->where('category_id', $request->category_id);
 			}
 
-			if($request->has('keyword')){
+			if($request->has('keyword')){ //search
 				$q->where(function($q) use($request){
 					$q->where('title', 'like', '%'.$request->keyword.'%');
 

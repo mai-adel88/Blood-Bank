@@ -9,7 +9,7 @@ class Post extends Model
 
     protected $table = 'posts';
     public $timestamps = true;
-    protected $fillable = array('title', 'content', 'image', 'user_id','category_id');
+    protected $fillable = array('title', 'content', 'image', 'is_favourite', 'user_id','category_id');
     protected $appends = ['is_favourite'];
 
     
@@ -42,7 +42,13 @@ class Post extends Model
         //$check = $this->fresh()->whereHas('clients',function ($query){
           //  $query->where('clientables.client_id',request()->user()->id);
         //})->first();
-        $check = $this->fresh()->clients()->where('clients.id',request()->user()->id)->first();
+        $userId = null;
+        if (request()->user()) {
+            $userId = request()->user()->id;
+        }elseif (auth('client-web')->user()->id) {
+            $userId = auth('client-web')->user()->id;
+        }
+        $check = $this->fresh()->clients()->where('clients.id',$userId)->first();
         //dd($check);
         
         if ($check)

@@ -46,6 +46,11 @@ return [
             'provider' => 'clients',
             'hash' => false,
         ],
+
+        'client-web' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
     ],
 
     /*

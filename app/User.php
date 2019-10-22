@@ -9,7 +9,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends Authenticatable
 {
     use Notifiable;
-    use EntrustUserTrait;
+    use EntrustUserTrait; 
 
     protected $table = 'users';
     public $timestamps = true;

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Settings;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        // share variable with all views
+        $settings = Settings::first();
+        view()->share(compact('settings'));
     }
 }

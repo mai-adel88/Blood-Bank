@@ -15,7 +15,7 @@ class CreateTokensTable extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('client_id')->unsigned();//one cient has many tokens(on evices FCM)
+            $table->integer('client_id')->unsigned();//one cient has many tokens(on devices FCM)
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->string('token');
             $table->enum('type',['android' , 'ios']);

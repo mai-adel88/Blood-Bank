@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class AuthController extends Controller
     	$validator = validator()->make($request->all(), [
     			'phone'				=>	'required',
 		    	'password'			=>	'required',
-		    	
+
     	]);
     	if($validator->fails())
     	{
@@ -58,18 +58,18 @@ class AuthController extends Controller
                 return apiResponse(1, 'done', [
                     'client'=>$client,
                     'api_token'=>$client->api_token
-                ]);    
+                ]);
             }else{
                 return apiResponse(0,'error in data');
             }
-    
+
         }else{
             return apiResponse(0,'error in data');
         }
     }
 
     //trying to associate user with the device -create token/ remove- to send notifications
-    public function registerToken(Request $request)  
+    public function registerToken(Request $request)
     {
         $validator = validator()->make($request->all(), [
                 'token'  =>  'required',
@@ -90,7 +90,7 @@ class AuthController extends Controller
     {
          $validator = validator()->make($request->all(), [
                 'token'  =>  'required',
-                
+
         ]);
         if($validator->fails())
         {
@@ -106,9 +106,9 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $validation = validator()->make($request->all() ,[
-            
+
             'phone'     =>'required',
-            
+
         ]);
 
         if($validation->fails())
@@ -129,7 +129,7 @@ class AuthController extends Controller
                 //send email first we should do->php artisan make:mail ResetPassword --markdown=emails.auth.resetPassword
 
                 \Mail::to($user->email)
-                        ->bcc("maiadel799@gmail.com") //my email to be sure to send the message 
+                        ->bcc("maiadel799@gmail.com") //my email to be sure to send the message
                         ->send(new ResetPassword($user));
 
 
@@ -158,7 +158,7 @@ class AuthController extends Controller
 
 
         $user = Client::where('pin_code', $request->pin_code)->where('pin_code', '!=', 0)
-                      ->where('phone', $request->phone)->first();  
+                      ->where('phone', $request->phone)->first();
 
         if($user){
             $user->password = bcrypt($request->password);
@@ -177,6 +177,6 @@ class AuthController extends Controller
     }
 
 
-        
-         
+
+
 }
